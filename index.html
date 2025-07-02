@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografik: Der Globale Web 3.0 & DeFi Kreditmarkt</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <!-- 
+    Infographic Plan:
+    Narrative Structure:
+    1.  Hero/Hook: Title and a massive projection to grab attention.
+    2.  Market Snapshot 2024: "Big Numbers" for key market segments.
+    3.  Growth Projections: A line chart visualizing the explosive forecast.
+    4.  DeFi Mechanics: An HTML/CSS-based flowchart explaining the lending process.
+    5.  The Leasing Revolution: Cards explaining NFT, RWA, and Compute leasing.
+    6.  Ecosystem Enablers: A section for key players like Chainlink, AML Bot, Bitnest.
+    7.  Challenges & Opportunities: A balanced view of the market's future.
+    8.  Conclusion: A final summary text.
+
+    Color Palette Selection: "Brilliant Blues" for a professional, tech-focused feel.
+    - Background: #00253E (Darkest Blue)
+    - Primary Text: #FFFFFF
+    - Accent/Chart Color 1: #00A1E4 (Bright Blue)
+    - Accent/Chart Color 2: #008DD5 (Medium Blue)
+    - Accent/Chart Color 3: #0072BC (Deeper Blue)
+    - Card Background: A slightly lighter shade, derived from the background for subtlety.
+
+    Visualization Choices (NO SVG, NO MERMAID JS):
+    -   DeFi Market Growth: Line Chart (Chart.js) -> Goal: Show Change. Justification: Best for time-series data.
+    -   Market Segments 2024: Bar Chart (Chart.js) -> Goal: Compare. Justification: Clearly compares values across different categories.
+    -   DeFi Lending Flow: HTML/CSS Flowchart -> Goal: Organize. Justification: Custom implementation with Tailwind provides full styling control without external libraries.
+    -   Key Stats: Big Number Callouts (HTML/CSS) -> Goal: Inform. Justification: High impact for key metrics.
+    -   All other layouts use HTML/CSS with Tailwind's grid and flexbox systems.
+    -   Icons are Unicode characters styled with CSS.
+    -   Confirmation: Neither Mermaid JS nor SVG are used in this document. All visuals are rendered via HTML/CSS or Chart.js on Canvas.
+    -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #00253E;
+            color: #E0F2FE;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 40vh;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .kpi-value {
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1;
+            color: #00A1E4;
+            text-shadow: 0 0 15px rgba(0, 161, 228, 0.4);
+        }
+        .card {
+            background-color: rgba(0, 80, 130, 0.2);
+            border: 1px solid rgba(0, 141, 213, 0.3);
+            backdrop-filter: blur(10px);
+        }
+        .flow-arrow::after {
+            content: '→';
+            font-size: 2.5rem;
+            color: #00A1E4;
+            margin: 0 1rem;
+            line-height: 1;
+        }
+        .flow-item {
+            border: 2px solid #008DD5;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="container mx-auto p-4 md:p-8">
+
+        <header class="text-center my-12">
+            <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-4">Die Web 3.0 Finanzrevolution</h1>
+            <p class="text-lg md:text-xl text-sky-200 max-w-4xl mx-auto">Eine Analyse des globalen Blockchain-basierten Kredit-, Leih- und Leasingmarktes</p>
+        </header>
+
+        <main>
+            <section id="hook" class="my-16 text-center">
+                <p class="text-2xl text-sky-300 mb-2">Prognostizierte DeFi Marktgröße bis 2037</p>
+                <div class="kpi-value">$2.36 Billionen</div>
+                <p class="text-lg text-sky-400 mt-2">Angetrieben durch eine jährliche Wachstumsrate (CAGR) von über 44%</p>
+            </section>
+            
+            <section id="market-snapshot" class="my-16">
+                <h2 class="text-3xl font-bold text-center text-white mb-10">Markt-Snapshot 2024: Die Segmente im Vergleich</h2>
+                <div class="card rounded-xl shadow-2xl p-6 md:p-8">
+                    <p class="text-center text-sky-200 mb-6">Der Web 3.0 Finanzmarkt ist bereits heute ein milliardenschweres Ökosystem. Während der gesamte DeFi-Markt die Grundlage bildet, zeigen die NFT- und Kreditsegmente ihre eigene beeindruckende Dynamik und ihr Potenzial.</p>
+                    <div class="chart-container">
+                        <canvas id="marketSegmentsChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <section id="growth-projection" class="my-16">
+                <h2 class="text-3xl font-bold text-center text-white mb-10">Explosives Wachstum: DeFi-Marktprognose</h2>
+                 <div class="card rounded-xl shadow-2xl p-6 md:p-8">
+                    <p class="text-center text-sky-200 mb-6">Analysten prognostizieren ein exponentielles Wachstum für den DeFi-Markt. Angetrieben durch zunehmende Akzeptanz und technologische Innovation wird ein Anstieg von rund 21 Mrd. USD im Jahr 2024 auf über 2,3 Billionen USD bis 2037 erwartet.</p>
+                    <div class="chart-container">
+                        <canvas id="growthProjectionChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <section id="defi-mechanics" class="my-16">
+                <h2 class="text-3xl font-bold text-center text-white mb-10">Die DeFi-Maschine: Wie funktioniert die Kreditvergabe?</h2>
+                <div class="card rounded-xl shadow-2xl p-6 md:p-8">
+                    <p class="text-center text-sky-200 mb-8 max-w-3xl mx-auto">Im Kern von DeFi-Lending steht die Disintermediation. Anstelle von Banken ermöglichen Smart Contracts direkte Peer-to-Peer-Interaktionen über Liquiditätspools, was den Prozess transparent, effizient und global zugänglich macht.</p>
+                    <div class="flex flex-col md:flex-row items-center justify-center text-center flex-wrap">
+                        <div class="flow-item p-6 rounded-lg m-2 flex-grow">
+                            <div class="text-5xl mb-2">🧑‍💻</div>
+                            <h3 class="text-xl font-bold text-white">Kreditgeber</h3>
+                            <p class="text-sky-300">Stellen Kapital zur Verfügung & erhalten Zinsen</p>
+                        </div>
+                        <div class="flow-arrow hidden md:block"></div>
+                        <div class="text-5xl md:hidden my-4">↓</div>
+                        <div class="flow-item p-6 rounded-lg m-2 flex-grow bg-sky-900/50">
+                            <div class="text-5xl mb-2">💧</div>
+                            <h3 class="text-xl font-bold text-white">Liquiditätspool</h3>
+                            <p class="text-sky-300">Gesteuert durch einen Smart Contract</p>
+                        </div>
+                        <div class="flow-arrow hidden md:block"></div>
+                        <div class="text-5xl md:hidden my-4">↓</div>
+                        <div class="flow-item p-6 rounded-lg m-2 flex-grow">
+                            <div class="text-5xl mb-2">🏦</div>
+                            <h3 class="text-xl font-bold text-white">Kreditnehmer</h3>
+                            <p class="text-sky-300">Hinterlegen Sicherheiten & leihen Kapital</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="leasing-revolution" class="my-16">
+                <h2 class="text-3xl font-bold text-center text-white mb-10">Jenseits von Krediten: Die Leasing-Revolution</h2>
+                <p class="text-center text-lg text-sky-200 mb-12 max-w-3xl mx-auto">Web 3.0 erweitert das Konzept des Leasings auf digitale und physische Vermögenswerte und schafft damit völlig neue Einnahmequellen und Nutzungsmodelle.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="card rounded-xl shadow-2xl p-6 text-center hover:border-sky-400 transition-all duration-300">
+                        <div class="text-6xl mb-4">🖼️</div>
+                        <h3 class="text-2xl font-bold text-white mb-2">NFT-Leasing</h3>
+                        <p class="text-sky-300">Vermietung von In-Game-Assets oder digitalem Land im Metaverse, um passive Einnahmen zu generieren, ohne das Eigentum zu übertragen.</p>
+                    </div>
+                    <div class="card rounded-xl shadow-2xl p-6 text-center hover:border-sky-400 transition-all duration-300">
+                        <div class="text-6xl mb-4">🏢</div>
+                        <h3 class="text-2xl font-bold text-white mb-2">RWA-Tokenisierung</h3>
+                        <p class="text-sky-300">Physische Vermögenswerte wie Immobilien werden in digitale Token aufgeteilt, was fraktioniertes Eigentum und das Leasing von Anteilen ermöglicht.</p>
+                         <div class="mt-4 pt-4 border-t border-sky-800">
+                            <p class="text-base text-sky-400">Prognostizierter Markt bis 2030</p>
+                            <p class="text-3xl font-bold text-sky-300">$3 Billionen</p>
+                        </div>
+                    </div>
+                    <div class="card rounded-xl shadow-2xl p-6 text-center hover:border-sky-400 transition-all duration-300">
+                        <div class="text-6xl mb-4">⚙️</div>
+                        <h3 class="text-2xl font-bold text-white mb-2">Rechenressourcen-Leasing</h3>
+                        <p class="text-sky-300">Dezentrale Netzwerke ermöglichen das Mieten und Vermieten ungenutzter Rechenleistung für KI, HPC und Web3-Anwendungen.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="enablers" class="my-16">
+                 <h2 class="text-3xl font-bold text-center text-white mb-10">Schlüsselakteure des Ökosystems</h2>
+                 <p class="text-center text-lg text-sky-200 mb-12 max-w-3xl mx-auto">Spezialisierte Anbieter bilden das technologische und regulatorische Rückgrat, das die Sicherheit, Funktionalität und Compliance des gesamten DeFi-Marktes gewährleistet.</p>
+                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="card rounded-xl shadow-2xl p-6">
+                        <div class="text-5xl mb-4">🔗</div>
+                        <h3 class="text-2xl font-bold text-white mb-2">Orakel (z.B. Chainlink)</h3>
+                        <p class="text-sky-300">Sie sind die unverzichtbare Brücke zwischen der Blockchain und der realen Welt. Sie liefern manipulationssichere Off-Chain-Daten (z.B. Preis-Feeds), die für die Besicherung von Krediten und die Ausführung von Smart Contracts kritisch sind.</p>
+                    </div>
+                    <div class="card rounded-xl shadow-2xl p-6">
+                        <div class="text-5xl mb-4">🛡️</div>
+                        <h3 class="text-2xl font-bold text-white mb-2">Compliance (z.B. AML Bot)</h3>
+                        <p class="text-sky-300">Automatisierte Systeme zur Geldwäschebekämpfung (AML) scannen Transaktionen, erkennen verdächtige Muster und helfen DeFi-Plattformen, regulatorische Anforderungen (z.B. MiCA) zu erfüllen und das Vertrauen von Nutzern und Institutionen zu gewinnen.</p>
+                    </div>
+                    <div class="card rounded-xl shadow-2xl p-6">
+                        <div class="text-5xl mb-4">🏗️</div>
+                        <h3 class="text-2xl font-bold text-white mb-2">Infrastruktur (z.B. Bitnest)</h3>
+                        <p class="text-sky-300">Diese Anbieter stellen die grundlegende Blockchain-Infrastruktur und die Dienste bereit, auf denen dezentrale Anwendungen laufen. Regulatorische Genehmigungen in Schlüsselmärkten schaffen die Legitimität für die Mainstream-Akzeptanz.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="challenges-opportunities" class="my-16">
+                <h2 class="text-3xl font-bold text-center text-white mb-10">Ausblick: Herausforderungen & Chancen</h2>
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                     <div class="card rounded-xl shadow-2xl p-6">
+                         <h3 class="text-2xl font-bold text-red-400 mb-4">Herausforderungen</h3>
+                         <ul class="space-y-3 list-disc list-inside text-red-200">
+                            <li><span class="font-semibold text-white">Regulatorische Unsicherheit:</span> Sich schnell entwickelnde Gesetze (z.B. MiCA, DORA) erfordern ständige Anpassung.</li>
+                            <li><span class="font-semibold text-white">Sicherheitslücken:</span> Das Risiko von Hacks, fehlerhaftem Code und Betrug bleibt eine große Sorge.</li>
+                             <li><span class="font-semibold text-white">Skalierbarkeit:</span> Hohe Netzwerkauslastung kann zu langsamen und teuren Transaktionen führen.</li>
+                             <li><span class="font-semibold text-white">Marktvolatilität:</span> Starke Preisschwankungen bei Krypto-Assets stellen ein erhebliches Risiko dar.</li>
+                         </ul>
+                     </div>
+                     <div class="card rounded-xl shadow-2xl p-6">
+                          <h3 class="text-2xl font-bold text-green-400 mb-4">Chancen</h3>
+                         <ul class="space-y-3 list-disc list-inside text-green-200">
+                            <li><span class="font-semibold text-white">Finanzielle Inklusion:</span> Zugang zu Finanzdienstleistungen für Milliarden von Menschen ohne Bankverbindung.</li>
+                            <li><span class="font-semibold text-white">Regulatorische Klarheit:</span> Klare Regeln schaffen Vertrauen und ziehen institutionelle Investoren an.</li>
+                             <li><span class="font-semibold text-white">Effizienz & Transparenz:</span> Reduzierung von Kosten und Zwischenhändlern durch Automatisierung.</li>
+                             <li><span class="font-semibold text-white">Innovation:</span> Die Entwicklung völlig neuer Finanzprodukte (z.B. Flash Loans) und Geschäftsmodelle.</li>
+                         </ul>
+                     </div>
+                 </div>
+            </section>
+        </main>
+        
+        <footer class="text-center mt-16 py-8 border-t border-sky-800">
+            <p class="text-sky-400">Diese Infografik fasst die Kernpunkte des Berichts "Der globale Web 3.0 Blockchain-basierte Kredit-, Leih- und Leasingmarkt" zusammen. Die Daten basieren auf verschiedenen öffentlich zugänglichen Marktanalysen und Prognosen von 2024.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        const wrapLabel = (str, maxWidth) => {
+            if (typeof str !== 'string' || str.length <= maxWidth) {
+                return str;
+            }
+            const words = str.split(' ');
+            const lines = [];
+            let currentLine = '';
+            for (const word of words) {
+                if ((currentLine + word).length > maxWidth && currentLine.length > 0) {
+                    lines.push(currentLine);
+                    currentLine = word;
+                } else {
+                    currentLine += (currentLine.length === 0 ? '' : ' ') + word;
+                }
+            }
+            lines.push(currentLine);
+            return lines;
+        };
+        
+        const tooltipTitleCallback = (tooltipItems) => {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+                return label.join(' ');
+            }
+            return label;
+        };
+
+        const sharedChartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    labels: {
+                        color: '#E0F2FE',
+                        font: { size: 14 }
+                    }
+                },
+                tooltip: {
+                    enabled: true,
+                    backgroundColor: 'rgba(0, 37, 62, 0.9)',
+                    titleColor: '#FFFFFF',
+                    bodyColor: '#E0F2FE',
+                    borderColor: '#008DD5',
+                    borderWidth: 1,
+                    padding: 10,
+                    callbacks: {
+                        title: tooltipTitleCallback
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: { 
+                        color: '#94A3B8',
+                        font: { size: 12 }
+                    },
+                    grid: { color: 'rgba(0, 141, 213, 0.15)' }
+                },
+                x: {
+                    ticks: { 
+                        color: '#94A3B8',
+                        font: { size: 12 }
+                     },
+                    grid: { color: 'rgba(0, 141, 213, 0.05)' }
+                }
+            }
+        };
+
+        const marketSegmentsCtx = document.getElementById('marketSegmentsChart').getContext('2d');
+        new Chart(marketSegmentsCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Gesamter DeFi-Markt', wrapLabel('DeFi-Kreditvergabe (Lending)', 16), 'NFT-Markt'].map(l => wrapLabel(l, 16)),
+                datasets: [{
+                    label: 'Marktgröße 2024 (in Mrd. USD)',
+                    data: [21.04, 3.6, 36.23],
+                    backgroundColor: ['#00A1E4', '#0072BC', '#008DD5'],
+                    borderColor: ['#00A1E4', '#0072BC', '#008DD5'],
+                    borderWidth: 1,
+                    borderRadius: 5,
+                }]
+            },
+            options: {
+                ...sharedChartOptions,
+                plugins: { ...sharedChartOptions.plugins, legend: { display: false } },
+                 scales: {
+                    y: {
+                        ...sharedChartOptions.scales.y,
+                        title: {
+                            display: true,
+                            text: 'Milliarden USD',
+                            color: '#94A3B8'
+                        }
+                    },
+                    x: sharedChartOptions.scales.x
+                }
+            }
+        });
+
+        const growthProjectionCtx = document.getElementById('growthProjectionChart').getContext('2d');
+        const gradient = growthProjectionCtx.createLinearGradient(0, 0, 0, 400);
+        gradient.addColorStop(0, 'rgba(0, 161, 228, 0.6)');
+        gradient.addColorStop(1, 'rgba(0, 37, 62, 0.1)');
+        new Chart(growthProjectionCtx, {
+            type: 'line',
+            data: {
+                labels: ['2024', '2025', '2030', '2034', '2037'],
+                datasets: [{
+                    label: 'DeFi Marktprognose (in Mrd. USD)',
+                    data: [21.04, 32.36, 211.7, 1558.15, 2360],
+                    fill: true,
+                    backgroundColor: gradient,
+                    borderColor: '#00A1E4',
+                    tension: 0.4,
+                    pointBackgroundColor: '#FFFFFF',
+                    pointBorderColor: '#00A1E4',
+                    pointHoverRadius: 7,
+                    pointRadius: 5
+                }]
+            },
+            options: {
+                ...sharedChartOptions,
+                 scales: {
+                    y: {
+                        ...sharedChartOptions.scales.y,
+                        title: {
+                            display: true,
+                            text: 'Milliarden USD',
+                            color: '#94A3B8'
+                        }
+                    },
+                    x: sharedChartOptions.scales.x
+                }
+            }
+        });
+    </script>
+</body>
+</html>
